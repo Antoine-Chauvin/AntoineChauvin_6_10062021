@@ -14,9 +14,6 @@ const sauceSchema = mongoose.Schema({
     usersDisliked: [String] ,
 })
 
-/* usersLiked : [ "String <userId>" ] — tableau des identifiants des utilisateurs
-qui ont aimé (= liked) la sauce
-usersDisliked : [ "String <userId>" ] — tableau des identifiants des
-utilisateurs qui n'ont pas aimé (= disliked) la sauce */
+
 
 module.exports = mongoose.model('Sauce', sauceSchema)
