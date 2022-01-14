@@ -3,8 +3,6 @@ const User = require('../models/user'); // modele user
 const jwt = require('jsonwebtoken'); // token generator package
 const emailValidator = require('email-validator');// email validator package
 const passwordValidator = require('password-validator'); // password validator package
-const MaskData = require('maskdata'); // masquage des données 
-
 
 const passwordSchema = new passwordValidator();
 
@@ -15,19 +13,17 @@ passwordSchema
 .has().lowercase()                              // Must have lowercase letters
 .has().digits()                                // Must have at least 1 digit
 .has().not().symbols();                         // Has no symbols
-//.has().not().spaces()                           // Should not have spaces is a wrong rule to apply
 
 exports.signup = (req, res, next) => { // inscription du user
 if (!emailValidator.validate(req.body.email) || !passwordSchema.validate(req.body.password)) { // si l'email et le mot de passe ne sont pas valides
   return res.status(400).json({ message: 'Vérifier votre adresse mail, et le mdp doit avoir au moins 8 caractères, 1 majuscule et  des chiffres '});
   
 } else if (emailValidator.validate(req.body.email) || passwordSchema.validate(req.body.password)) { // s'ils sont valides
-const maskedMail = MaskData.maskEmail2(req.body.email); // anonymistaion l'adresse mail
-    bcrypt.hash(req.body.password, 10) // hashage du password
+    bcrypt.hash(req.body.password, 10) // hashage du password avec le sel compris dans le nb of round
     .then(hash => {
       
         const user = new User ({        
-            email: maskedMail, // l'adresse mail anonymisé
+            email: req.body.email, // l'adresse mail anonymisé
             password: hash
         });
         user.save()   // et mongoose le stocke dans la bdd
@@ -43,8 +39,7 @@ const maskedMail = MaskData.maskEmail2(req.body.email); // anonymistaion l'adres
 
 
 exports.login = (req, res, next) => { // connexion du user
-  const maskedMail = MaskData.maskEmail2(req.body.email);
-    User.findOne({ email: maskedMail }) // on vérifie que l'adresse mail figure bien dan la bdd
+  User.findOne({ email: req.body.email }) // on vérifie que l'adresse mail figure bien dan la bdd
       .then(user => {
         if (!user) {
           return res.status(401).json({ error: 'Utilisateur non trouvé !' });
