@@ -1,0 +1,10 @@
+Ce que je dois faire pour le p6 : 
+
+But du site l'ui ajoute une sauce et peut réagir aux sauces des autres en les notants: 
+
+But du back: _transmettre les sauce déjà présentens sur le serv à un ui
+             _Permettre aux ui d'ajouter des obj sauces
+             _Permettre aux de modif leur obj sauce
+             _Pemettre aux ui tiers de modifier le like ou dislike d'une sauce d'un autre ui 
+             _Système d'historique des like et dislike des ui (un même ui ne peut like ou dislike q'1 fois, une seule val par ui)
+             _avoir un sys de loggin 
