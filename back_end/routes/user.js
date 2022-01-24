@@ -12,4 +12,5 @@ router.post('/signup', userCtrl.signup);//à revoir !
 router.post('/login',connectLimatation, userCtrl.login);//à Revoir !
 
 
-module.exports = router;
+module.exports = router;        
+

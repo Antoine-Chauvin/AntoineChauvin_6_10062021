@@ -9,7 +9,6 @@ const multer = require('../middlewares/multer-config');
 //import les fonctions des middlewares depuis ../controllers/sauces.js
 const saucesCtrl = require('../controllers/sauces')
 
-const bodyParser = require('body-parser')
 
 router.get('/', auth, saucesCtrl.getSauces);
 router.post('/', auth, multer, saucesCtrl.createSauce);

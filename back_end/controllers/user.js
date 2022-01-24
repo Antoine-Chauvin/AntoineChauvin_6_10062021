@@ -28,7 +28,7 @@ if (!emailValidator.validate(req.body.email) || !passwordSchema.validate(req.bod
         });
         user.save()   // et mongoose le stocke dans la bdd
         .then( hash => res.status(201).json({ message: 'Utilisateur créé !'}))
-        .catch(error => res.status(400).json({ error }))
+        .catch(error => res.status(400).json({ message: 'Email déjà utilisé' }))
     })
     .catch(error => res.status(500).json({ error }))
     };
@@ -53,12 +53,12 @@ exports.login = (req, res, next) => { // connexion du user
               userId: user._id,
               token: jwt.sign( // on génère un token de session pour le user maintenant connecté
                   { userId: user._id},
-                  'RANDOM_TOKEN_SECRET',
+                  process.env.JTK,
                   { expiresIn: '24h'}
               )
               
             })
-            
+            console.log(process.env.JTK);
           })
           .catch(error => res.status(500).json({ error }));
       })

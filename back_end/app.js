@@ -6,13 +6,19 @@ const app = express();
 const mongoose = require('mongoose');
 
 const path = require('path');
+const bodyParser = require('body-parser');
 
 //va chercher la logique des routes dans le fichier nous servant à mutualiser les routes ensemble
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 
+//importation de dotenv
+require('dotenv').config();
+
+
 //connexion à Mongo DB
-mongoose.connect('mongodb+srv://AntoineChauvin:PasswordP6formOC2021@cluster0.wq8bo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+
+mongoose.connect(`mongodb+srv://${process.env.userMongo}:${process.env.passMongo}@cluster0.wq8bo.mongodb.net/${process.env.nameDB}?retryWrites=true&w=majority`,
 {useNewUrlParser: true, 
 useUnifiedTopology:true })
 .then(()=> console.log ('connexion à mongoDB réussie !'))
