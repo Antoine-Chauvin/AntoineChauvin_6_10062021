@@ -8,14 +8,13 @@ const sauceSchema = mongoose.Schema({
     mainPeppeer: {type: String, require: true},
     imageUrl: {type: String, require: true},
     heat: {type: Number, require: true},
-   /*  likes: {type: Number, default: 0},
-    dislikes:{type: Number, default:0}, */
     usersLiked: [String],
     usersDisliked: [String] ,
 },
 {toJSON: {virtuals: true}}
 )
 
+//crée l'info de like ou dislike qui est calculer au besoin quand on lit le produit
 sauceSchema.virtual("likes").get(function(){
     return this.usersLiked.length
 });

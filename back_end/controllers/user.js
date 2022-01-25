@@ -43,7 +43,7 @@ exports.login = (req, res, next) => { // connexion du user
       .then(user => {
         if (!user) {
           return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-        }
+        } 
         bcrypt.compare(req.body.password, user.password) // on compare les mots de passes
           .then(valid => {
             if (!valid) {
