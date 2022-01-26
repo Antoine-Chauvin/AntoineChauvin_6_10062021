@@ -58,7 +58,7 @@ exports.login = (req, res, next) => { // connexion du user
               )
               
             })
-            console.log(process.env.JTK);
+            
           })
           .catch(error => res.status(500).json({ error }));
       })
